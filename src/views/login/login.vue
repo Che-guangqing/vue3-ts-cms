@@ -1,5 +1,8 @@
 <template>
-  <div>Login</div>
+  <div>
+    Login
+    <h3>{{ $store.state.name }}</h3>
+  </div>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'

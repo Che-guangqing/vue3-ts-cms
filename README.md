@@ -29,3 +29,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ## - 使用 `prettier` 工具: 安装 `Prettier - Code formatter` 插件 ；安装`npm install prettier -D`
 ## - 配置脚本 ` "prettier": "prettier --write"`, 运行 `npm run prettier`
 ## - 兼容eslit 和 prettier 配置：安装两个插件 `npm install eslint-plugin-prettier eslint-config-prettier -D`
+## - git提交之前检查代码是否符合eslint规范 `npx husky-init && npm install`

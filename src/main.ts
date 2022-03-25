@@ -7,6 +7,7 @@ import router from './router'
 import store from './store'
 
 import './registerServiceWorker'
+import './service/axios_demo'
 
 const app = createApp(App)
 
@@ -18,6 +19,7 @@ app.use(store)
 app.mount('#app')
 
 /**
+ *
  * 如果传入的是对象，会默认执行里面的install方法
  * app.use({
  *  install: () => {}
@@ -26,3 +28,5 @@ app.mount('#app')
  * app.use(() => {})
  *
  */
+
+// 1:50:32

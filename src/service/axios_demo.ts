@@ -1,4 +1,6 @@
 import axios, { AxiosResponse } from 'axios'
+import base from './request/config'
+console.log(base, 'basebasebase')
 
 // axios.request({
 //   url: ''

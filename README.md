@@ -32,3 +32,15 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 #### 5、git提交之前检查代码是否符合eslint规范 `npx husky-init && npm install`
 #### 6、使用Commitizen规范git commit 的提交信息 `npm install commitizen -D` 、安装cz-conventional-changelog，并且初始化cz-conventional-changelog `npx commitizen init cz-conventional-changelog --save-dev --save-exact`  执行`npx cz`
 #### 7、通过commitlint来限制提交， `npm i @commitlint/config-conventional @commitlint/cli -D`; 使用husky生成commit-msg文件，验证提交信息`npx husky add .husky/commit-msg "npx --no-install commitlint --edit $1"`
+
+
+## 环境变量
+- 开发环境: development
+- 生产环境: production
+- 测试环境: test
+
+区分环境变量
+- 手动修改不同的变量
+- 根据`process.env.NODE_ENV`值区分
+- 编写不同的环境变量配置文件: `VUE_APP_xxx = xxx; 获取：process.env.VUE_APP_BASE_URL`
+

@@ -3,6 +3,7 @@ const path = require("path");
 
 module.exports = {
   outputDir: "./build",
+  publicPath: "./",
   lintOnSave: false,
   chainWebpack: (config) => {
     config.resolve.alias

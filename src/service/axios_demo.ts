@@ -1,15 +1,17 @@
 import axios, { AxiosResponse } from 'axios'
-import base from './request/config'
-console.log(base, 'basebasebase')
+import { BASE_URL } from './request/config'
+console.log(BASE_URL, 'basebasebase')
 
 // axios.request({
 //   url: ''
 // })
 
 // get
-axios.get('http://123.207.32.32:8000/home/multidata').then((res: AxiosResponse) => {
-  console.log(res.data)
-})
+axios
+  .get('http://123.207.32.32:8000/home/multidata')
+  .then((res: AxiosResponse) => {
+    console.log(res.data)
+  })
 
 // axios全局配置选项
 axios.defaults.baseURL = 'http://httpbin.org'
@@ -42,9 +44,14 @@ axios
   })
 
 // all -> 多个请求,一起返回数据
-axios.all([axios.get('/get', { params: { name: 'cc' } }), axios.post('/post', { data: { name: 'hh' } })]).then((res) => {
-  console.log('all =>', res)
-})
+axios
+  .all([
+    axios.get('/get', { params: { name: 'cc' } }),
+    axios.post('/post', { data: { name: 'hh' } })
+  ])
+  .then((res) => {
+    console.log('all =>', res)
+  })
 
 // 拦截器
 axios.interceptors.request.use(

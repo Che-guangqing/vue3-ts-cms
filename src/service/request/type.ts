@@ -9,7 +9,8 @@ export interface MYRequestInterceptors {
   responseInterceptorsCatch?: (error: any) => any
 }
 
-// MYRequestConfig接口对原来的AxiosRequestConfig接口 扩展了对拦截器的配置
+// MYRequestConfig接口对原来的AxiosRequestConfig接口 扩展了对拦截器的配置; 扩展了是否显示loading
 export interface MYRequestConfig extends AxiosRequestConfig {
   interceptors?: MYRequestInterceptors
+  showLoading?: boolean
 }

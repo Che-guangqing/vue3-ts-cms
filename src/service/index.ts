@@ -4,8 +4,13 @@ import { BASE_URL, TIME_OUT } from './request/config'
 const myRequest = new MYRequest({
   baseURL: BASE_URL,
   timeout: TIME_OUT,
+
   interceptors: {
     requestInterceptors: (config) => {
+      const token = '111'
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`
+      }
       console.log('请求成功拦截')
       return config
     },

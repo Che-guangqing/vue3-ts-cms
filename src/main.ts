@@ -21,6 +21,7 @@ app.mount('#app')
 myRequest.request({
   url: '/home/multidata',
   method: 'GET'
+  // showLoading: true
 })
 
 // myRequest.request({

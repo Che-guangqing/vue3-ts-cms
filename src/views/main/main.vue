@@ -5,7 +5,6 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
-import myRequest from '@/service'
 
 export default defineComponent({
   name: 'Main',

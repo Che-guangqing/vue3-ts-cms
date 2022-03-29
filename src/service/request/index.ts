@@ -8,7 +8,6 @@ const DEFAULT_LOADING = true
 class MYRequest {
   // 有自己配置的axios实例
   instance: AxiosInstance
-
   interceptors?: MYRequestInterceptors
   loading?: LoadingInstance
   showLoading: boolean
@@ -88,7 +87,7 @@ class MYRequest {
         .then((res) => {
           // 单个请求对数据的处理
           if (config.interceptors?.responseInterceptors) {
-            res = config.interceptors.responseInterceptors(res) // 待解决类型问题
+            res = config.interceptors.responseInterceptors(res)
           }
 
           this.showLoading = DEFAULT_LOADING

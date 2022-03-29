@@ -71,7 +71,8 @@ class MYRequest {
   }
 
   // 给单独某个接口进行配置
-  request<T>(config: MYRequestConfig): Promise<T> {
+  request<T>(config: MYRequestConfig<T>): Promise<T> {
+    // res的类型 应该由调用的时候规定 也就是外界可以决定他什么类型 不能写死为默认的AxiosResponse类型
     return new Promise((resolve, reject) => {
       // 3、 给单独某个接口添加拦截器
       if (config.interceptors?.requestInterceptors) {
@@ -87,7 +88,7 @@ class MYRequest {
         .then((res) => {
           // 单个请求对数据的处理
           if (config.interceptors?.responseInterceptors) {
-            // res = config.interceptors.responseInterceptors(res) // 待解决类型问题
+            res = config.interceptors.responseInterceptors(res) // 待解决类型问题
           }
 
           this.showLoading = DEFAULT_LOADING
@@ -102,19 +103,21 @@ class MYRequest {
     })
   }
 
-  get<T>(config: MYRequestConfig): Promise<T> {
+  get<T>(config: MYRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'GET' })
   }
-  post<T>(config: MYRequestConfig): Promise<T> {
+  post<T>(config: MYRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'POST' })
   }
-  delete<T>(config: MYRequestConfig): Promise<T> {
+  delete<T>(config: MYRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'DELETE' })
   }
-  patch<T>(config: MYRequestConfig): Promise<T> {
+  patch<T>(config: MYRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'PATCH' })
   }
 }
+
+export default MYRequest
 
 // interface DataType {
 //   data: any
@@ -150,5 +153,3 @@ class MYRequest {
 //     }
 //   }
 // })
-
-export default MYRequest

@@ -4,7 +4,6 @@ import { BASE_URL, TIME_OUT } from './request/config'
 const myRequest = new MYRequest({
   baseURL: BASE_URL,
   timeout: TIME_OUT,
-
   interceptors: {
     requestInterceptors: (config) => {
       const token = '111'

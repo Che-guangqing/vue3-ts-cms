@@ -44,3 +44,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 - 根据`process.env.NODE_ENV`值区分
 - 编写不同的环境变量配置文件: `VUE_APP_xxx = xxx; 获取：process.env.VUE_APP_BASE_URL`
 
+- `yarn add normalize.css` css初始化文件

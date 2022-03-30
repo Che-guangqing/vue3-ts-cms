@@ -79,11 +79,11 @@ const loginModule: Module<ILoginState, IRootState> = {
       if (userMenus) {
         commit('changeUserMenus', userMenus)
       }
-    },
-
-    phoneLoginAction({ commit }, payload: any) {
-      console.log('store执行---phoneLoginAction', payload)
     }
+
+    // phoneLoginAction({ commit }, payload: any) {
+    //   console.log('store执行---phoneLoginAction', payload)
+    // }
   }
 }
 

@@ -7,6 +7,7 @@ import App from './App.vue'
 
 import router from './router'
 import store from './store'
+import { setupStore } from './store'
 
 import './registerServiceWorker'
 
@@ -14,9 +15,10 @@ const app = createApp(App)
 
 // globalRegister(app)
 app.use(globalRegister)
-
 app.use(router)
 app.use(store)
+setupStore()
+
 app.mount('#app')
 
 // console.log(process.env.VUE_APP_BASE_URL)

@@ -10,6 +10,10 @@ import {
   ElButton,
   ElCheckbox,
   ElLink,
+  ElContainer,
+  ElAside,
+  ElHeader,
+  ElMain,
   ElRadio
 } from 'element-plus'
 const components = [
@@ -21,6 +25,10 @@ const components = [
   ElButton,
   ElCheckbox,
   ElLink,
+  ElContainer,
+  ElAside,
+  ElHeader,
+  ElMain,
   ElRadio
 ]
 

@@ -1,7 +1,7 @@
 import { App } from 'vue'
-import { User, Iphone } from '@element-plus/icons-vue'
+import { User, Iphone, Location } from '@element-plus/icons-vue'
 
-const components = [User, Iphone]
+const components = [User, Iphone, Location]
 
 export default function (app: App): void {
   for (const component of components) {

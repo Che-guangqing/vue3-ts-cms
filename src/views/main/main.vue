@@ -8,7 +8,9 @@
         <el-header class="page-header">
           <NavHeader />
         </el-header>
-        <el-main class="page-content">Main</el-main>
+        <el-main class="page-content">
+          {{ $store.state.login.userMenus }}
+        </el-main>
       </el-container>
     </el-container>
   </div>

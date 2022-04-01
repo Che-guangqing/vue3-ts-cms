@@ -1,0 +1,37 @@
+{
+  "id": "3295501",
+  "name": "cms-icnfont",
+  "font_family": "iconfont",
+  "css_prefix_text": "el-icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "201644",
+      "name": "3.1 全部商品",
+      "font_class": "chat-line-round",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "1581577",
+      "name": "聊天",
+      "font_class": "goods",
+      "unicode": "e63c",
+      "unicode_decimal": 58940
+    },
+    {
+      "icon_id": "3638342",
+      "name": "系统服务",
+      "font_class": "setting",
+      "unicode": "e62f",
+      "unicode_decimal": 58927
+    },
+    {
+      "icon_id": "5203236",
+      "name": "电脑",
+      "font_class": "monitor",
+      "unicode": "e61e",
+      "unicode_decimal": 58910
+    }
+  ]
+}

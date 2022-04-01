@@ -47,3 +47,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 - `yarn add normalize.css` css初始化文件
 
 36  2:01:42
+
+`yarn add coderwhy`
+`coderwhy add3page user --d src/view/main/system/user`

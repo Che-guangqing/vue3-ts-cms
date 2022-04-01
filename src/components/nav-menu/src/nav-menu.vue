@@ -18,13 +18,16 @@
           <!-- 二级菜单的可以展开的标题 -->
           <el-sub-menu :index="item.id + ''">
             <template #title>
-              <i v-if="item.icon" :class="item.icon">图标 - </i>
+              <i v-if="item.icon" :class="['icon', 'iconfont', item.icon]"></i>
               <span>{{ item.name }}</span>
             </template>
             <!-- 遍历里面的item -->
             <template v-for="subitem in item.children" :key="subitem.id">
               <el-menu-item :index="subitem.id + ''">
-                <i v-if="subitem.icon" :class="subitem.icon">图标</i>
+                <i
+                  v-if="subitem.icon"
+                  :class="['icon', 'iconfont', subitem.icon]"
+                ></i>
                 <span>{{ subitem.name }}</span>
               </el-menu-item>
             </template>
@@ -34,7 +37,7 @@
         <!-- 1级菜单 -->
         <template v-else-if="item.type === 2">
           <el-menu-item :index="item.id + ''">
-            <i v-if="item.icon" :class="item.icon">图标</i>
+            <i v-if="item.icon" :class="['icon', 'iconfont', item.icon]"></i>
             <span>{{ item.name }}</span>
           </el-menu-item>
         </template>
@@ -105,6 +108,9 @@ export default defineComponent({
     .el-menu-item {
       padding-left: 50px !important;
       background-color: #0c2135 !important;
+    }
+    .el-sub-menu__title * {
+      margin-left: 10px;
     }
   }
 

@@ -13,11 +13,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.el-icon-chat-line-round:before {
+.el-icon-goods:before {
   content: "\e600";
 }
 
-.el-icon-goods:before {
+.el-icon-chat-line-round:before {
   content: "\e63c";
 }
 

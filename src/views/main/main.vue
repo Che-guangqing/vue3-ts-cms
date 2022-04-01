@@ -10,7 +10,6 @@
         </el-header>
         <el-main class="page-content">
           <router-view></router-view>
-          {{ $store.state.login.userMenus }}
         </el-main>
       </el-container>
     </el-container>

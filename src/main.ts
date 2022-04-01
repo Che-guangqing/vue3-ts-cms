@@ -32,3 +32,11 @@ app.mount('#app')
  * app.use(() => {})
  *
  */
+
+enum Gender1 {
+  male = '男',
+  female = '女'
+}
+const gender1: Gender1 = Gender1.female
+const gender2: Gender1 = Gender1.male
+console.log(gender1, gender2)

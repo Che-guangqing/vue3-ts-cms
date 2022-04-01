@@ -46,4 +46,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 - `yarn add normalize.css` css初始化文件
 
-36  0:31
+36  2:01:42

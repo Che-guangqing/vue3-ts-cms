@@ -18,13 +18,13 @@
           <!-- 二级菜单的可以展开的标题 -->
           <el-sub-menu :index="item.id + ''">
             <template #title>
-              <i v-if="item.icon" :class="item.icon"></i>
+              <i v-if="item.icon" :class="item.icon">图标 - </i>
               <span>{{ item.name }}</span>
             </template>
             <!-- 遍历里面的item -->
             <template v-for="subitem in item.children" :key="subitem.id">
               <el-menu-item :index="subitem.id + ''">
-                <i v-if="subitem.icon" :class="subitem.icon"></i>
+                <i v-if="subitem.icon" :class="subitem.icon">图标</i>
                 <span>{{ subitem.name }}</span>
               </el-menu-item>
             </template>
@@ -34,7 +34,7 @@
         <!-- 1级菜单 -->
         <template v-else-if="item.type === 2">
           <el-menu-item :index="item.id + ''">
-            <i v-if="item.icon" :class="item.icon"></i>
+            <i v-if="item.icon" :class="item.icon">图标</i>
             <span>{{ item.name }}</span>
           </el-menu-item>
         </template>
@@ -50,6 +50,12 @@ import { computed, defineComponent } from 'vue'
 import { useStore } from '@/store/index'
 
 export default defineComponent({
+  props: {
+    collapse: {
+      type: Boolean,
+      default: false
+    }
+  },
   setup() {
     // useStore类型 取子模块的state数据 ts支持很差  推荐pinio
     // 所以自己实现了一个useStore，规定了子模块的类型

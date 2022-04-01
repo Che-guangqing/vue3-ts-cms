@@ -42,8 +42,9 @@ const loginModule: Module<ILoginState, IRootState> = {
 
       // 注册路由 userMenus => routes ;
       const routes = mapMenusToRoutes(userMenus)
+      console.log(routes, '注册路由')
 
-      // routes => router.main.children  注册路由
+      // routes => router.main.children
       routes.forEach((route) => {
         router.addRoute('main', route)
       })
@@ -74,6 +75,8 @@ const loginModule: Module<ILoginState, IRootState> = {
 
     // 刷新给vuex赋值
     loadLocalLogin({ commit }) {
+      console.log('刷新给vuex赋值')
+
       const token = localCache.getCache('token')
       if (token) {
         commit('changeToken', token)

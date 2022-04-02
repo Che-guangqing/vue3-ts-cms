@@ -1,47 +1,45 @@
 <template>
-  <div class="user">
-    <div class="search">
-      <el-form :label-width="labelWidth">
-        <el-row>
-          <template v-for="item in formItems" :key="item.label">
-            <el-col :span="8">
-              <el-form-item :label="item.label" :rules="item.rules">
-                <template
-                  v-if="item.type === 'input' || item.type === 'password'"
-                >
-                  <el-input
-                    :placeholder="item.placeholder"
-                    :show-password="item.type === 'password'"
-                  ></el-input>
-                </template>
+  <div class="my-form">
+    <el-form :label-width="labelWidth">
+      <el-row>
+        <template v-for="item in formItems" :key="item.label">
+          <el-col v-bind="colLayout">
+            <el-form-item
+              :label="item.label"
+              :rules="item.rules"
+              :style="itemStyle"
+            >
+              <template
+                v-if="item.type === 'input' || item.type === 'password'"
+              >
+                <el-input
+                  :placeholder="item.placeholder"
+                  :show-password="item.type === 'password'"
+                ></el-input>
+              </template>
 
-                <template v-else-if="item.type === 'select'">
-                  <el-select
-                    :placeholder="item.placeholder"
-                    style="width: 100%"
+              <template v-else-if="item.type === 'select'">
+                <el-select :placeholder="item.placeholder" style="width: 100%">
+                  <el-option
+                    v-for="option in item.options"
+                    :value="option.value"
+                    :key="option.value"
+                    >{{ option.label }}</el-option
                   >
-                    <el-option
-                      v-for="option in item.options"
-                      :value="option.value"
-                      :key="option.value"
-                      >{{ option.label }}</el-option
-                    >
-                  </el-select>
-                </template>
+                </el-select>
+              </template>
 
-                <template v-else-if="item.type === 'datepicker'">
-                  <el-date-picker
-                    v-bind="item.otherOptions"
-                    style="width: 100%"
-                  ></el-date-picker>
-                </template>
-              </el-form-item>
-            </el-col>
-          </template>
-        </el-row>
-      </el-form>
-    </div>
-    <div class="content"></div>
+              <template v-else-if="item.type === 'datepicker'">
+                <el-date-picker
+                  v-bind="item.otherOptions"
+                  style="width: 100%"
+                ></el-date-picker>
+              </template>
+            </el-form-item>
+          </el-col>
+        </template>
+      </el-row>
+    </el-form>
   </div>
 </template>
 
@@ -58,6 +56,20 @@ export default defineComponent({
     labelWidth: {
       type: String,
       default: '100px'
+    },
+    itemStyle: {
+      type: Object,
+      default: () => ({ padding: '5px 30px' })
+    },
+    colLayout: {
+      type: Object,
+      default: () => ({
+        xl: 6, // > 1920  4
+        lg: 8, // > 1200  3
+        md: 12, // > 992  2
+        sm: 24,
+        xs: 24
+      })
     }
   },
   setup() {
@@ -66,4 +78,11 @@ export default defineComponent({
 })
 </script>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.my-form {
+  padding-top: 22px;
+  .el-form-item {
+    padding: 5px 30px;
+  }
+}
+</style>

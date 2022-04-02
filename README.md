@@ -50,4 +50,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 `yarn add coderwhy`
 `coderwhy add3page user --d src/view/main/system/user`
 
-37  2:37:50
+38
+ 

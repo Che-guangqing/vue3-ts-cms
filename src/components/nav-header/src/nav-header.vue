@@ -5,21 +5,25 @@
       <img v-else src="@/assets/img/fold-right.png" />
     </div>
     <div class="content">
-      <div>面包屑</div>
-      <div>
-        <userInfo />
-      </div>
+      <MyBreadcrumb :breadcrumbs="breadcrumbs" />
+      <UserInfo />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
-import userInfo from './user-info.vue'
+import { defineComponent, ref, computed } from 'vue'
+import UserInfo from './user-info.vue'
+import MyBreadcrumb from '@/base-ui/breadcrumb/index'
+
+import { useStore } from '@/store'
+import { useRoute } from 'vue-router'
+import { pathMapBreadcrumbs } from '@/utils/mapMenus'
 
 export default defineComponent({
   components: {
-    userInfo
+    UserInfo,
+    MyBreadcrumb
   },
   setup(props, { emit }) {
     const isFold = ref(false)
@@ -27,9 +31,17 @@ export default defineComponent({
       isFold.value = !isFold.value
       emit('foldChange', isFold.value)
     }
+
+    const breadcrumbs = computed(() => {
+      const userMenus = useStore().state.login.userMenus
+      const currentPath = useRoute().path
+      return pathMapBreadcrumbs(userMenus, currentPath)
+    })
+
     return {
       isFold,
-      handleFoldClick
+      handleFoldClick,
+      breadcrumbs
     }
   }
 })

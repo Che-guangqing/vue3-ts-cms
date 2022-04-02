@@ -26,6 +26,8 @@ import {
   ElSelect,
   ElOption,
   ElDatePicker,
+  ElBreadcrumb,
+  ElBreadcrumbItem,
   ElRadio
 } from 'element-plus'
 const components = [
@@ -53,6 +55,8 @@ const components = [
   ElSelect,
   ElOption,
   ElDatePicker,
+  ElBreadcrumb,
+  ElBreadcrumbItem,
   ElRadio
 ]
 

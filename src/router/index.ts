@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import localCache from '@/utils/cache'
+import { firstMenu } from '@/utils/mapMenus'
 
 // 导入添加type  表示此出导入的是一个类型
 import type { RouteRecordRaw } from 'vue-router'
@@ -39,12 +40,19 @@ router.beforeEach((to) => {
       return '/login'
     }
   }
-  if (to.path.indexOf('/main') !== -1) {
-    if (to.name === 'notFound') {
-      console.log(1)
-      to.name = 'user'
-    }
+  // console.log(router.getRoutes(), to)
+
+  // 重定向
+  if (to.path === '/main') {
+    return firstMenu.url
   }
+
+  // if (to.path.indexOf('/main') !== -1) {
+  //   if (to.name === 'notFound') {
+  //     console.log(1)
+  //     to.name = 'user'
+  //   }
+  // }
 })
 
 export default router

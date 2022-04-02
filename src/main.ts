@@ -15,9 +15,10 @@ const app = createApp(App)
 
 // globalRegister(app)
 app.use(globalRegister)
-app.use(router)
 app.use(store)
+
 setupStore()
+app.use(router)
 
 app.mount('#app')
 
@@ -33,10 +34,15 @@ app.mount('#app')
  *
  */
 
-enum Gender1 {
-  male = '男',
-  female = '女'
-}
-const gender1: Gender1 = Gender1.female
-const gender2: Gender1 = Gender1.male
-console.log(gender1, gender2)
+// type g = {
+//   male: '男'
+//   female: '女'
+// }
+
+// enum Gender1 {
+//   male = '男',
+//   female = '女'
+// }
+// const gender1: Gender1 = Gender1.female
+// const gender2: Gender1 = Gender1.male
+// console.log(gender1, gender2)

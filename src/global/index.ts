@@ -1,10 +1,11 @@
 import { App } from 'vue'
 import registerElement from './registerElement'
-import registerElIcon from './registerElIcon'
+import registerProperties from './registerProperties'
 
 // export function globalRegister(app: App): void {
 //   registerElement(app)
 //   // app.use(registerElement)
+//   // app.use(registerProperties)
 // }
 
 // 或
@@ -12,6 +13,6 @@ import registerElIcon from './registerElIcon'
 export const globalRegister = {
   install: (app: App): void => {
     registerElement(app)
-    registerElIcon(app)
+    registerProperties(app)
   }
 }

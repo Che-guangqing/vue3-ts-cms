@@ -4,12 +4,15 @@
     <div class="content">
       <MyTable :listData="userList" :propList="propList">
         <template #enable="scope">
-          <el-button>
+          <el-button plain :type="[scope.row.enable ? 'success' : 'danger']">
             {{ scope.row.enable ? '启用' : '禁用' }}
           </el-button>
         </template>
         <template #createAt="scope">
-          <strong>{{ scope.row.createAt }}</strong>
+          <strong>{{ $filters.formatTime(scope.row.createAt) }}</strong>
+        </template>
+        <template #updateAt="scope">
+          <strong>{{ $filters.formatTime(scope.row.updateAt) }}</strong>
         </template>
       </MyTable>
     </div>
@@ -36,7 +39,7 @@ export default defineComponent({
       pageUrl: '/users/list',
       queryInfo: {
         offset: 0,
-        size: 10
+        size: 50
       }
     })
 

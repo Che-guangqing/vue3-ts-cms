@@ -7,12 +7,14 @@ import { getPageListData } from '@/service/main/system/system'
 
 const systemModule: Module<ISystemState, IRootState> = {
   namespaced: true,
+
   state() {
     return {
       userList: [],
       userCount: 0
     }
   },
+
   mutations: {
     changeUserList(state, userList: any[]) {
       state.userList = userList
@@ -21,6 +23,7 @@ const systemModule: Module<ISystemState, IRootState> = {
       state.userCount = userCount
     }
   },
+
   actions: {
     async getPageListAction({ commit }, payload: any) {
       const pageResult = await getPageListData(
@@ -31,7 +34,7 @@ const systemModule: Module<ISystemState, IRootState> = {
       commit('changeUserList', list)
       commit('changeUserCount', totalCount)
 
-      console.log(list, totalCount, 'getPageListAction ==== ')
+      // console.log(list, totalCount, 'getPageListAction ==== ')
     }
   }
 }

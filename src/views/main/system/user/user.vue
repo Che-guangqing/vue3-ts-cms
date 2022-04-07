@@ -2,7 +2,16 @@
   <div class="user">
     <PageSearch :searchFormConfig="searchFormConfig" />
     <div class="content">
-      <MyTable :listData="userList" :propList="propList"> </MyTable>
+      <MyTable :listData="userList" :propList="propList">
+        <template #enable="scope">
+          <el-button>
+            {{ scope.row.enable ? '启用' : '禁用' }}
+          </el-button>
+        </template>
+        <template #createAt="scope">
+          <strong>{{ scope.row.createAt }}</strong>
+        </template>
+      </MyTable>
     </div>
   </div>
 </template>
@@ -35,13 +44,33 @@ export default defineComponent({
     const userCount = computed(() => store.state.system.userCount)
 
     const propList = [
-      { prop: 'id', label: 'ID', minWidth: '100' },
-      { prop: 'name', label: '用户名', minWidth: '100' },
-      { prop: 'realname', label: '真实姓名', minWidth: '100' },
-      { prop: 'cellphone', label: '手机号码', minWidth: '100' },
-      { prop: 'enable', label: '状态', minWidth: '100' },
-      { prop: 'createAt', label: '创建时间', minWidth: '150' },
-      { prop: 'updateAt', label: '更新时间', minWidth: '150' }
+      { slotName: 'id', prop: 'id', label: 'ID', minWidth: '100' },
+      { slotName: 'name', prop: 'name', label: '用户名', minWidth: '100' },
+      {
+        slotName: 'realname',
+        prop: 'realname',
+        label: '真实姓名',
+        minWidth: '100'
+      },
+      {
+        slotName: 'cellphone',
+        prop: 'cellphone',
+        label: '手机号码',
+        minWidth: '100'
+      },
+      { slotName: 'enable', prop: 'enable', label: '状态', minWidth: '100' },
+      {
+        slotName: 'createAt',
+        prop: 'createAt',
+        label: '创建时间',
+        minWidth: '150'
+      },
+      {
+        slotName: 'updateAt',
+        prop: 'updateAt',
+        label: '更新时间',
+        minWidth: '150'
+      }
     ]
     return {
       searchFormConfig,

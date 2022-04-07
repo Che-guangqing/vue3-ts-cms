@@ -10,16 +10,25 @@ export const searchFormConfig: IForm = {
   },
   formItems: [
     {
+      field: 'id',
+      type: 'input',
+      label: 'ID',
+      placeholder: '请输入ID'
+    },
+    {
+      field: 'name',
       type: 'input',
       label: '用户名',
       placeholder: '请输入用户名'
     },
     {
+      field: 'password',
       type: 'password',
       label: '密码',
       placeholder: '请输入密码'
     },
     {
+      field: 'sport',
       type: 'select',
       label: '运动',
       placeholder: '请选择运动',
@@ -30,6 +39,7 @@ export const searchFormConfig: IForm = {
       ]
     },
     {
+      field: 'createTime',
       type: 'datepicker',
       label: '创建时间',
       otherOptions: {

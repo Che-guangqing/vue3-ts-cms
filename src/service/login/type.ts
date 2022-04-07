@@ -4,10 +4,6 @@ export interface IAccount {
 }
 
 // request 返回值res的类型
-export interface IDataType<T = any> {
-  code: number
-  data: T
-}
 
 // 登录接口 res中data的类型
 export interface ILoginResult {

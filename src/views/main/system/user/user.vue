@@ -2,7 +2,13 @@
   <div class="user">
     <PageSearch :searchFormConfig="searchFormConfig" />
     <div class="content">
-      <MyTable :listData="userList" :propList="propList">
+      <MyTable
+        :listData="userList"
+        :propList="propList"
+        :showIndexColumn="true"
+        :showSelectColumn="true"
+        @handleSelectionChange="handleSelectionChange"
+      >
         <template #enable="scope">
           <el-button plain :type="[scope.row.enable ? 'success' : 'danger']">
             {{ scope.row.enable ? '启用' : '禁用' }}
@@ -75,12 +81,18 @@ export default defineComponent({
         minWidth: '150'
       }
     ]
+
+    const handleSelectionChange = (value: any) => {
+      console.log(value, '选中的数据')
+    }
+
     return {
       searchFormConfig,
       userCount,
 
       userList,
-      propList
+      propList,
+      handleSelectionChange
     }
   }
 })

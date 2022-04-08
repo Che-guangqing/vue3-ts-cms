@@ -25,7 +25,7 @@
       <!-- header -->
       <template #header></template>
       <template #headerHandler>
-        <el-button type="primary">新建用户</el-button>
+        <el-button type="primary">新建{{ titleMap[pageName] }}</el-button>
       </template>
 
       <!-- footer -->
@@ -50,7 +50,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
+import { useStore } from '@/store'
+
 import MyTable from '@/base-ui/table'
 
 export default defineComponent({
@@ -62,13 +64,38 @@ export default defineComponent({
       type: Object,
       required: true
     },
-    listData: {
-      type: Array,
+    pageName: {
+      type: String,
       required: true
     }
+    // listData: {
+    //   type: Array,
+    //   required: true
+    // }
   },
-  setup() {
-    return {}
+  setup(props) {
+    const store = useStore()
+    store.dispatch('system/getPageListAction', {
+      pageName: props.pageName,
+      queryInfo: {
+        offset: 0,
+        size: 50
+      }
+    })
+
+    const userCount = computed(
+      () => store.state.system[`${props.pageName}Count`]
+    )
+    const listData = computed(() => store.state.system[`${props.pageName}List`])
+
+    const titleMap = {
+      user: '用户',
+      role: '角色'
+    }
+    return {
+      listData,
+      titleMap
+    }
   }
 })
 </script>

@@ -20,6 +20,14 @@
         <template #updateAt="scope">
           <strong>{{ $filters.formatTime(scope.row.updateAt) }}</strong>
         </template>
+        <template #handler>
+          <div class="handle-btns">
+            <el-button :icon="Edit" size="mini" type="text">编辑</el-button>
+            <el-button :icon="Delete" size="mini" type="text" class="delete-btn"
+              >删除</el-button
+            >
+          </div>
+        </template>
       </MyTable>
     </div>
   </div>
@@ -31,6 +39,8 @@ import { useStore } from '@/store'
 
 import PageSearch from '@/components/page-search'
 import { searchFormConfig } from './config/search.config'
+
+import { Edit, Delete } from '@element-plus/icons-vue'
 
 import MyTable from '@/base-ui/table'
 
@@ -79,7 +89,8 @@ export default defineComponent({
         prop: 'updateAt',
         label: '更新时间',
         minWidth: '150'
-      }
+      },
+      { slotName: 'handler', label: '操作', minWidth: '120' }
     ]
 
     const handleSelectionChange = (value: any) => {
@@ -92,7 +103,10 @@ export default defineComponent({
 
       userList,
       propList,
-      handleSelectionChange
+      handleSelectionChange,
+
+      Edit,
+      Delete
     }
   }
 })
@@ -100,7 +114,10 @@ export default defineComponent({
 
 <style scoped lang="less">
 .handle-btns {
-  text-align: right;
+  .delete-btn {
+    color: red;
+    margin-left: 20px;
+  }
 }
 .content {
   padding: 20px;

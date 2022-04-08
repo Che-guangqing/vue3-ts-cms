@@ -1,77 +1,28 @@
 <template>
   <div class="user">
     <PageSearch :searchFormConfig="searchFormConfig" />
-    <MyTable
+    <pageContent
+      :contentTableConfig="contentTableConfig"
       :listData="userList"
-      :propList="propList"
-      :showIndexColumn="true"
-      :showSelectColumn="true"
-      :tableTitle="`用户列表`"
-      @handleSelectionChange="handleSelectionChange"
-    >
-      <!-- table列特殊项插槽配置 -->
-      <template #enable="scope">
-        <el-button plain :type="scope.row.enable ? 'success' : 'danger'">
-          {{ scope.row.enable ? '启用' : '禁用' }}
-        </el-button>
-      </template>
-      <template #createAt="scope">
-        <strong>{{ $filters.formatTime(scope.row.createAt) }}</strong>
-      </template>
-      <template #updateAt="scope">
-        <strong>{{ $filters.formatTime(scope.row.updateAt) }}</strong>
-      </template>
-      <template #handler>
-        <div class="handle-btns">
-          <el-button :icon="Edit" size="small" type="text">编辑</el-button>
-          <el-button :icon="Delete" size="small" type="text" class="delete-btn"
-            >删除</el-button
-          >
-        </div>
-      </template>
-
-      <!-- header -->
-      <template #header></template>
-      <template #headerHandler>
-        <el-button type="primary">新建用户</el-button>
-      </template>
-
-      <!-- footer -->
-      <template #footer>
-        <div>
-          <el-pagination
-            v-model:currentPage="currentPage"
-            v-model:page-size="pageSize"
-            :page-sizes="[10, 20, 30, 40]"
-            :small="small"
-            :disabled="disabled"
-            background
-            layout="total, sizes, prev, pager, next, jumper"
-            :total="total"
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-          />
-        </div>
-      </template>
-    </MyTable>
+    />
   </div>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue'
 import { useStore } from '@/store'
-
-import PageSearch from '@/components/page-search'
-import { searchFormConfig } from './config/search.config'
-
 import { Edit, Delete } from '@element-plus/icons-vue'
 
-import MyTable from '@/base-ui/table'
+import PageSearch from '@/components/page-search'
+import pageContent from '@/components/page-content'
+
+import { searchFormConfig } from './config/search.config'
+import { contentTableConfig } from './config/content.config'
 
 export default defineComponent({
   components: {
     PageSearch,
-    MyTable
+    pageContent
   },
   setup() {
     const store = useStore()
@@ -83,63 +34,18 @@ export default defineComponent({
       }
     })
 
-    const currentPage = ref(1)
-    const pageSize = ref(10)
-    const total = ref(0)
-
-    const userList = computed(() => store.state.system.userList)
     const userCount = computed(() => store.state.system.userCount)
-
-    const propList = [
-      { slotName: 'id', prop: 'id', label: 'ID', minWidth: '100' },
-      { slotName: 'name', prop: 'name', label: '用户名', minWidth: '100' },
-      {
-        slotName: 'realname',
-        prop: 'realname',
-        label: '真实姓名',
-        minWidth: '100'
-      },
-      {
-        slotName: 'cellphone',
-        prop: 'cellphone',
-        label: '手机号码',
-        minWidth: '100'
-      },
-      { slotName: 'enable', prop: 'enable', label: '状态', minWidth: '100' },
-      {
-        slotName: 'createAt',
-        prop: 'createAt',
-        label: '创建时间',
-        minWidth: '150'
-      },
-      {
-        slotName: 'updateAt',
-        prop: 'updateAt',
-        label: '更新时间',
-        minWidth: '150'
-      },
-      { slotName: 'handler', label: '操作', minWidth: '120' }
-    ]
-
-    const handleSelectionChange = (value: any) => {
-      console.log(value, '选中的数据')
-    }
+    const userList = computed(() => store.state.system.userList)
 
     return {
       searchFormConfig,
+      contentTableConfig,
 
       userCount,
       userList,
-      propList,
-
-      currentPage,
-      pageSize,
-      total,
 
       Edit,
-      Delete,
-
-      handleSelectionChange
+      Delete
     }
   }
 })

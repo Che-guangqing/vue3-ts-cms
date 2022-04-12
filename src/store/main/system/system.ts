@@ -22,6 +22,13 @@ const systemModule: Module<ISystemState, IRootState> = {
       roleCount: 0
     }
   },
+  getters: {
+    pageListData(state) {
+      return (pageName: string) => {
+        return state[`${pageName}List`]
+      }
+    }
+  },
 
   mutations: {
     changeUserList(state, userList: any[]) {

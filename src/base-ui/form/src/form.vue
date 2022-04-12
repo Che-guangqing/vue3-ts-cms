@@ -19,8 +19,10 @@
                   :placeholder="item.placeholder"
                   v-bind="item.otherOptions"
                   :show-password="item.type === 'password'"
-                  v-model="formData[`${item.field}`]"
+                  :model-value="modelValue[`${item.field}`]"
+                  @update:modelValue="hadnleValueChange($event, item.field)"
                 ></el-input>
+                <!-- v-model="formData[`${item.field}`]" -->
               </template>
 
               <template v-else-if="item.type === 'select'">
@@ -28,8 +30,10 @@
                   :placeholder="item.placeholder"
                   v-bind="item.otherOptions"
                   style="width: 100%"
-                  v-model="formData[`${item.field}`]"
+                  :model-value="modelValue[`${item.field}`]"
+                  @update:modelValue="hadnleValueChange($event, item.field)"
                 >
+                  <!-- v-model="formData[`${item.field}`]" -->
                   <el-option
                     v-for="option in item.options"
                     :value="option.value"
@@ -43,8 +47,10 @@
                 <el-date-picker
                   v-bind="item.otherOptions"
                   style="width: 100%"
-                  v-model="formData[`${item.field}`]"
+                  :model-value="modelValue[`${item.field}`]"
+                  @update:modelValue="hadnleValueChange($event, item.field)"
                 ></el-date-picker>
+                <!-- v-model="formData[`${item.field}`]" -->
               </template>
             </el-form-item>
           </el-col>
@@ -90,15 +96,24 @@ export default defineComponent({
       })
     }
   },
-  emits: ['update: modelValue'],
+  emits: ['update:modelValue'],
   setup(props, { emit }) {
-    // 属性改变触发事件
-    const formData = ref({ ...props.modelValue })
+    // 最终优化
+    const hadnleValueChange = (value: any, field: string) => {
+      console.log({ ...props.modelValue, [field]: value })
 
-    watch(formData, (newValue) => emit('update: modelValue', newValue), {
-      deep: true
-    })
+      emit('update:modelValue', { ...props.modelValue, [field]: value })
+    }
 
+    // // 2、使用双向绑定
+    // // 属性改变触发事件
+    // const formData = ref({ ...props.modelValue })
+
+    // watch(formData, (newValue) => emit('update:modelValue', newValue), {
+    //   deep: true
+    // })
+
+    // // 1、X
     // const formData = computed({
     //   get: () => props.modelValue,
     //   set: (newValue) => {
@@ -109,7 +124,8 @@ export default defineComponent({
     // })
 
     return {
-      formData
+      hadnleValueChange
+      // formData
     }
   }
 })

@@ -1,7 +1,7 @@
 <template>
   <div class="role">
     <PageSearch :searchFormConfig="searchFormConfig" />
-    <pageContent pageName="role" :contentTableConfig="contentTableConfig" />
+    <PageContent pageName="role" :contentTableConfig="contentTableConfig" />
   </div>
 </template>
 
@@ -10,7 +10,7 @@ import { defineComponent } from 'vue'
 import { Edit, Delete } from '@element-plus/icons-vue'
 
 import PageSearch from '@/components/page-search'
-import pageContent from '@/components/page-content'
+import PageContent from '@/components/page-content'
 
 import { searchFormConfig } from './config/search.config'
 import { contentTableConfig } from './config/content.config'
@@ -18,7 +18,7 @@ import { contentTableConfig } from './config/content.config'
 export default defineComponent({
   components: {
     PageSearch,
-    pageContent
+    PageContent
   },
   setup() {
     return {

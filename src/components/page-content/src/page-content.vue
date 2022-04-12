@@ -86,7 +86,10 @@ export default defineComponent({
     const userCount = computed(
       () => store.state.system[`${props.pageName}Count`]
     )
-    const listData = computed(() => store.state.system[`${props.pageName}List`])
+    // const listData = computed(() => store.state.system[`${props.pageName}List`])
+    const listData = computed(() =>
+      store.getters[`system/pageListData`](props.pageName)
+    )
 
     const titleMap = {
       user: '用户',

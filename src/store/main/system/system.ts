@@ -25,7 +25,12 @@ const systemModule: Module<ISystemState, IRootState> = {
   getters: {
     pageListData(state) {
       return (pageName: string) => {
-        return state[`${pageName}List`]
+        return (state as any)[`${pageName}List`]
+      }
+    },
+    pageListCount(state) {
+      return (pageName: string) => {
+        return (state as any)[`${pageName}Count`]
       }
     }
   },

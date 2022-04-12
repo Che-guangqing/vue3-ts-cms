@@ -1,6 +1,11 @@
 <template>
   <div class="page-content">
-    <MyTable :listData="listData" v-bind="contentTableConfig">
+    <MyTable
+      :listData="listData"
+      :listCount="listCount"
+      v-bind="contentTableConfig"
+      v-model:page="pageInfo"
+    >
       <!-- table列特殊项插槽配置 -->
       <template #enable="scope">
         <el-button plain :type="scope.row.enable ? 'success' : 'danger'">
@@ -29,32 +34,22 @@
       </template>
 
       <!-- footer -->
-      <template #footer>
-        <div>
-          <el-pagination
-            v-model:currentPage="currentPage"
-            v-model:page-size="pageSize"
-            :page-sizes="[10, 20, 30, 40]"
-            small="small"
-            :disabled="true"
-            background
-            layout="total, sizes, prev, pager, next, jumper"
-            :total="total"
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-          />
-        </div>
-      </template>
+      <template #footer> </template>
     </MyTable>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, ref, watch } from 'vue'
 import { useStore } from '@/store'
 import { Edit, Delete } from '@element-plus/icons-vue'
 
 import MyTable from '@/base-ui/table'
+
+const titleMap = {
+  user: '用户',
+  role: '角色'
+}
 
 export default defineComponent({
   components: {
@@ -69,21 +64,21 @@ export default defineComponent({
       type: String,
       required: true
     }
-    // listData: {
-    //   type: Array,
-    //   required: true
-    // }
   },
   setup(props) {
     const store = useStore()
+
+    // 分页数据
+    const pageInfo = ref({ currentPage: 0, pageSize: 10 })
+    watch(pageInfo, () => getPageData())
 
     // 发送请求
     const getPageData = (searchInfo: any = {}) => {
       store.dispatch('system/getPageListAction', {
         pageName: props.pageName,
         queryInfo: {
-          offset: 0,
-          size: 50,
+          offset: pageInfo.value.currentPage * pageInfo.value.pageSize,
+          size: pageInfo.value.pageSize,
           ...searchInfo
         }
       })
@@ -91,39 +86,24 @@ export default defineComponent({
     getPageData()
 
     // 从vuex中获取数据
-    const userCount = computed(
-      () => store.state.system[`${props.pageName}Count`]
+    const listCount = computed(() =>
+      store.getters[`system/pageListCount`](props.pageName)
     )
-    // const listData = computed(() => store.state.system[`${props.pageName}List`])
     const listData = computed(() =>
       store.getters[`system/pageListData`](props.pageName)
     )
 
-    const titleMap = {
-      user: '用户',
-      role: '角色'
-    }
-
-    const handleSizeChange = () => {
-      console.log('handleSizeChange')
-    }
-    const handleCurrentChange = () => {
-      console.log('handleCurrentChange')
-    }
     return {
-      listData,
       titleMap,
+
+      listCount,
+      listData,
+      pageInfo,
 
       getPageData,
 
       Edit,
-      Delete,
-
-      currentPage: 1,
-      pageSize: 10,
-      total: 100,
-      handleSizeChange,
-      handleCurrentChange
+      Delete
     }
   }
 })

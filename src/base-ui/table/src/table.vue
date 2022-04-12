@@ -46,7 +46,20 @@
 
       <!-- footer -->
       <div class="footer">
-        <slot name="footer"></slot>
+        <slot name="footer">
+          <el-pagination
+            :current-page="page.currentPage"
+            :page-size="page.pageSize"
+            :page-sizes="[10, 20, 30, 40]"
+            small="small"
+            :disabled="false"
+            background
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="listCount"
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+          />
+        </slot>
       </div>
     </div>
   </div>
@@ -65,6 +78,10 @@ export default defineComponent({
       type: Array,
       required: true
     },
+    listCount: {
+      type: Number,
+      default: 0
+    },
     propList: {
       type: Array,
       required: true
@@ -76,17 +93,34 @@ export default defineComponent({
     showSelectColumn: {
       type: Boolean,
       default: false
+    },
+    page: {
+      type: Object,
+      default: () => ({ currentPage: 0, pageSize: 10 })
     }
   },
-  emits: ['handleSelectionChange'],
+  emits: ['handleSelectionChange', 'update:page'],
   setup(props, { emit }) {
     // 选中数据触发事件
     const handleSelectionChange = (value: any) => {
       emit('handleSelectionChange', value)
     }
 
+    const handleSizeChange = (pageSize: number) => {
+      emit('update:page', { ...props.page, pageSize })
+    }
+    const handleCurrentChange = (currentPage: number) => {
+      emit('update:page', { ...props.page, currentPage })
+    }
+
     return {
-      handleSelectionChange
+      handleSelectionChange,
+
+      currentPage: 1,
+      pageSize: 10,
+      total: 100,
+      handleSizeChange,
+      handleCurrentChange
     }
   }
 })

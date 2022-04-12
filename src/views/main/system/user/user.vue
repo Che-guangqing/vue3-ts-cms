@@ -9,12 +9,18 @@
       ref="pageContentRef"
       pageName="user"
       :contentTableConfig="contentTableConfig"
-    />
+    >
+      <template #enable="scope">
+        <el-button plain :type="scope.row.enable ? 'success' : 'danger'">
+          {{ scope.row.enable ? '启用' : '禁用' }}
+        </el-button>
+      </template>
+    </PageContent>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue'
 import { Edit, Delete } from '@element-plus/icons-vue'
 
 import PageSearch from '@/components/page-search'

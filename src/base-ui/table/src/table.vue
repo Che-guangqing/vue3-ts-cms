@@ -34,7 +34,11 @@
           width="80"
         ></el-table-column>
         <template v-for="propItem in propList" :key="propItem.id">
-          <el-table-column v-bind="propItem" align="center">
+          <el-table-column
+            v-bind="propItem"
+            align="center"
+            show-overflow-tooltip
+          >
             <template #default="scope">
               <slot :name="propItem.slotName" :row="scope.row">
                 {{ scope.row[propItem.prop] }}
@@ -140,6 +144,12 @@ export default defineComponent({
   .content {
     padding: 0 20px;
     border-top: 20px solid #f5f5f5;
+  }
+  .footer {
+    height: 80px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
   }
 }
 </style>

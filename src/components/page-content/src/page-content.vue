@@ -6,18 +6,25 @@
       v-bind="contentTableConfig"
       v-model:page="pageInfo"
     >
-      <!-- table列特殊项插槽配置 -->
-      <template #enable="scope">
-        <el-button plain :type="scope.row.enable ? 'success' : 'danger'">
-          {{ scope.row.enable ? '启用' : '禁用' }}
-        </el-button>
+      <!-- header -->
+      <template #header></template>
+      <template #headerHandler>
+        <el-button type="primary">新建{{ titleMap[pageName] }}</el-button>
       </template>
+
+      <!-- footer -->
+      <template #footer> </template>
+
+      <!-- table列特殊项 公共 插槽配置 -->
+      <!-- 时间 -->
       <template #createAt="scope">
         <strong>{{ $filters.formatTime(scope.row.createAt) }}</strong>
       </template>
       <template #updateAt="scope">
         <strong>{{ $filters.formatTime(scope.row.updateAt) }}</strong>
       </template>
+
+      <!-- 操作 -->
       <template #handler>
         <div class="handle-btns">
           <el-button :icon="Edit" size="small" type="text">编辑</el-button>
@@ -27,14 +34,28 @@
         </div>
       </template>
 
-      <!-- header -->
-      <template #header></template>
-      <template #headerHandler>
-        <el-button type="primary">新建{{ titleMap[pageName] }}</el-button>
+      <!-- 对于每个页面独有的插槽需要动态插入 -->
+      <template
+        v-for="item in otherPropSlots"
+        :key="item.prop"
+        #[item.slotName]="scope"
+      >
+        <slot :name="item.slotName" :row="scope.row"></slot>
       </template>
 
-      <!-- footer -->
-      <template #footer> </template>
+      <!-- <template #enable="scope">
+        <el-button plain :type="scope.row.enable ? 'success' : 'danger'">
+          {{ scope.row.enable ? '启用' : '禁用' }}
+        </el-button>
+      </template>
+      <template #imgUrl="scope">
+        <el-image
+          :preview-teleported="true"
+          style="width: 40px"
+          :src="scope.row.imgUrl"
+          :preview-src-list="[scope.row.imgUrl]"
+        ></el-image>
+      </template> -->
     </MyTable>
   </div>
 </template>
@@ -46,9 +67,13 @@ import { Edit, Delete } from '@element-plus/icons-vue'
 
 import MyTable from '@/base-ui/table'
 
+// 公共插槽名称
+const COMMON_SOLT_NAME = ['createAt', 'updateAt', 'handler']
+
 const titleMap = {
   user: '用户',
-  role: '角色'
+  role: '角色',
+  good: '商品'
 }
 
 export default defineComponent({
@@ -93,6 +118,11 @@ export default defineComponent({
       store.getters[`system/pageListData`](props.pageName)
     )
 
+    // 获取非公共的动态插槽名称
+    const otherPropSlots = props.contentTableConfig?.propList.filter(
+      (item: any) => item.slotName && !COMMON_SOLT_NAME.includes(item.slotName)
+    )
+
     return {
       titleMap,
 
@@ -101,6 +131,7 @@ export default defineComponent({
       pageInfo,
 
       getPageData,
+      otherPropSlots,
 
       Edit,
       Delete
@@ -111,5 +142,8 @@ export default defineComponent({
 
 <style lang="less" scoped>
 .page-content {
+  img {
+    width: 40px;
+  }
 }
 </style>

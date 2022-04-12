@@ -73,7 +73,8 @@ const COMMON_SOLT_NAME = ['createAt', 'updateAt', 'handler']
 const titleMap = {
   user: '用户',
   role: '角色',
-  good: '商品'
+  good: '商品',
+  menu: '菜单'
 }
 
 export default defineComponent({

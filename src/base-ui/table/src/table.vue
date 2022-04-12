@@ -19,7 +19,9 @@
         stripe
         style="width: 100%"
         @selection-change="handleSelectionChange"
+        v-bind="childrenProps"
       >
+        <!-- row-key="id" :tree-props="{ children: 'children' }" -->
         <el-table-column
           v-if="showSelectColumn"
           type="selection"
@@ -49,7 +51,7 @@
       </el-table>
 
       <!-- footer -->
-      <div class="footer">
+      <div class="footer" v-if="showFooter">
         <slot name="footer">
           <el-pagination
             :current-page="page.currentPage"
@@ -98,9 +100,18 @@ export default defineComponent({
       type: Boolean,
       default: false
     },
+    // table tree
+    childrenProps: {
+      type: Object,
+      default: () => ({})
+    },
     page: {
       type: Object,
       default: () => ({ currentPage: 0, pageSize: 10 })
+    },
+    showFooter: {
+      type: Boolean,
+      default: true
     }
   },
   emits: ['handleSelectionChange', 'update:page'],
@@ -142,7 +153,7 @@ export default defineComponent({
     }
   }
   .content {
-    padding: 0 20px;
+    padding: 0 20px 20px 20px;
     border-top: 20px solid #f5f5f5;
   }
   .footer {

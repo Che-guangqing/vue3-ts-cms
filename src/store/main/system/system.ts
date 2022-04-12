@@ -8,7 +8,8 @@ import { getPageListData } from '@/service/main/system/system'
 const pageUrlMap = {
   user: '/users/list',
   role: '/role/list',
-  good: '/goods/list'
+  good: '/goods/list',
+  menu: '/menu/list'
 }
 
 const systemModule: Module<ISystemState, IRootState> = {
@@ -23,7 +24,10 @@ const systemModule: Module<ISystemState, IRootState> = {
       roleCount: 0,
 
       goodList: [],
-      goodCount: 0
+      goodCount: 0,
+
+      menuList: [],
+      menuCount: 0
     }
   },
   getters: {
@@ -59,6 +63,13 @@ const systemModule: Module<ISystemState, IRootState> = {
     },
     changeGoodCount(state, goodCount: number) {
       state.goodCount = goodCount
+    },
+
+    changeMenuList(state, menuList: any[]) {
+      state.menuList = menuList
+    },
+    changeMenuCount(state, menuCount: number) {
+      state.menuCount = menuCount
     }
   },
 

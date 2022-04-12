@@ -1,7 +1,15 @@
 <template>
   <div class="user">
-    <PageSearch :searchFormConfig="searchFormConfig" />
-    <PageContent pageName="user" :contentTableConfig="contentTableConfig" />
+    <PageSearch
+      :searchFormConfig="searchFormConfig"
+      @searchBtnClick="handleSearchClick"
+      @resetBtnClick="handleResetClick"
+    />
+    <PageContent
+      ref="pageContentRef"
+      pageName="user"
+      :contentTableConfig="contentTableConfig"
+    />
   </div>
 </template>
 
@@ -15,12 +23,17 @@ import PageContent from '@/components/page-content'
 import { searchFormConfig } from './config/search.config'
 import { contentTableConfig } from './config/content.config'
 
+import { usePageSearch } from '@/hooks/usePageSearch'
+
 export default defineComponent({
   components: {
     PageSearch,
     PageContent
   },
   setup() {
+    const { pageContentRef, handleSearchClick, handleResetClick } =
+      usePageSearch()
+
     // const store = useStore()
     // store.dispatch('system/getPageListAction', {
     //   pageName: '/user',
@@ -37,11 +50,12 @@ export default defineComponent({
       searchFormConfig,
       contentTableConfig,
 
-      // userCount,
-      // userList,
-
       Edit,
-      Delete
+      Delete,
+
+      pageContentRef,
+      handleSearchClick,
+      handleResetClick
     }
   }
 })

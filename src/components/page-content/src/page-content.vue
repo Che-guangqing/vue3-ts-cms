@@ -35,8 +35,8 @@
             v-model:currentPage="currentPage"
             v-model:page-size="pageSize"
             :page-sizes="[10, 20, 30, 40]"
-            :small="small"
-            :disabled="disabled"
+            small="small"
+            :disabled="true"
             background
             layout="total, sizes, prev, pager, next, jumper"
             :total="total"
@@ -52,6 +52,7 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
 import { useStore } from '@/store'
+import { Edit, Delete } from '@element-plus/icons-vue'
 
 import MyTable from '@/base-ui/table'
 
@@ -75,14 +76,21 @@ export default defineComponent({
   },
   setup(props) {
     const store = useStore()
-    store.dispatch('system/getPageListAction', {
-      pageName: props.pageName,
-      queryInfo: {
-        offset: 0,
-        size: 50
-      }
-    })
 
+    // 发送请求
+    const getPageData = (searchInfo: any = {}) => {
+      store.dispatch('system/getPageListAction', {
+        pageName: props.pageName,
+        queryInfo: {
+          offset: 0,
+          size: 50,
+          ...searchInfo
+        }
+      })
+    }
+    getPageData()
+
+    // 从vuex中获取数据
     const userCount = computed(
       () => store.state.system[`${props.pageName}Count`]
     )
@@ -95,9 +103,27 @@ export default defineComponent({
       user: '用户',
       role: '角色'
     }
+
+    const handleSizeChange = () => {
+      console.log('handleSizeChange')
+    }
+    const handleCurrentChange = () => {
+      console.log('handleCurrentChange')
+    }
     return {
       listData,
-      titleMap
+      titleMap,
+
+      getPageData,
+
+      Edit,
+      Delete,
+
+      currentPage: 1,
+      pageSize: 10,
+      total: 100,
+      handleSizeChange,
+      handleCurrentChange
     }
   }
 })

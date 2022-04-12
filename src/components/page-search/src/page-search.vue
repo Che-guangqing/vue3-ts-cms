@@ -31,7 +31,8 @@ export default defineComponent({
       required: true
     }
   },
-  setup(props) {
+  emits: ['searchBtnClick', 'resetBtnClick'],
+  setup(props, { emit }) {
     const formItems = props.searchFormConfig?.formItems ?? []
 
     const formOriginData: any = {}
@@ -42,8 +43,9 @@ export default defineComponent({
     const formData = ref(formOriginData)
 
     const handleSearchClick = () => {
-      console.log(formData.value, 'handleSearchClick')
+      emit('searchBtnClick', formData.value)
     }
+
     const handleResetClick = () => {
       // 1. X 使用双向绑定 使用时防止子组件直接修改父组件的值所以子组件所用的值是此值的拷贝，但是由于是拷贝，数据改变后当前数据会变，上一个拷贝引用并不会变
       // formData.value = formOriginData
@@ -55,6 +57,7 @@ export default defineComponent({
 
       // 最终优化
       formData.value = formOriginData
+      emit('resetBtnClick')
     }
 
     return {

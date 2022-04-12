@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import { globalRegister } from './global/index'
 import 'normalize.css'
 import './assets/css/index.css'
+import 'default-passive-events'
 
 import App from './App.vue'
 

@@ -51,7 +51,7 @@ const systemModule: Module<ISystemState, IRootState> = {
       // 获取pageUrl
       const pageName = payload.pageName
       const pageUrl = pageUrlMap[pageName]
-      console.log(payload)
+      // console.log(payload)
 
       // 发送请求
       const pageResult = await getPageListData(pageUrl, payload.queryInfo)

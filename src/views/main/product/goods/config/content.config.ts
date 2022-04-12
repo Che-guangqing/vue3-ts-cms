@@ -11,6 +11,15 @@ export const contentTableConfig = {
       label: '商品图片',
       minWidth: '100'
     },
+    { prop: 'address', label: '地址', minWidth: '' },
+    {
+      slotName: 'inventoryCount',
+      prop: 'inventoryCount',
+      label: '库存',
+      minWidth: ''
+    },
+    { slotName: 'saleCount', prop: 'saleCount', label: '销售量', minWidth: '' },
+
     {
       slotName: 'createAt',
       prop: 'createAt',

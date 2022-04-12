@@ -25,6 +25,12 @@
       </template>
       <template #oldPrice="scope"> ¥{{ scope.row.oldPrice }} </template>
       <template #newPrice="scope"> ¥{{ scope.row.newPrice }} </template>
+      <template #inventoryCount="scope">
+        <strong>{{ scope.row.inventoryCount }}</strong> 件
+      </template>
+      <template #saleCount="scope">
+        <strong>{{ scope.row.saleCount }}</strong> 件
+      </template>
     </PageContent>
   </div>
 </template>

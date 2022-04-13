@@ -7,7 +7,7 @@
     />
     <PageContent
       ref="pageContentRef"
-      pageName="user"
+      pageName="users"
       :contentTableConfig="contentTableConfig"
     >
       <template #enable="scope">

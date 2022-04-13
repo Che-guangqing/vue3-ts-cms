@@ -9,7 +9,9 @@
       <!-- header -->
       <template #header></template>
       <template #headerHandler>
-        <el-button type="primary">新建{{ titleMap[pageName] }}</el-button>
+        <el-button type="primary" v-if="isCreate"
+          >新建{{ titleMap[pageName] }}</el-button
+        >
       </template>
 
       <!-- footer -->
@@ -27,8 +29,15 @@
       <!-- 操作 -->
       <template #handler>
         <div class="handle-btns">
-          <el-button :icon="Edit" size="small" type="text">编辑</el-button>
-          <el-button :icon="Delete" size="small" type="text" class="delete-btn"
+          <el-button v-if="isUpdate" :icon="Edit" size="small" type="text"
+            >编辑</el-button
+          >
+          <el-button
+            v-if="isDelete"
+            :icon="Delete"
+            size="small"
+            type="text"
+            class="delete-btn"
             >删除</el-button
           >
         </div>
@@ -42,20 +51,6 @@
       >
         <slot :name="item.slotName" :row="scope.row"></slot>
       </template>
-
-      <!-- <template #enable="scope">
-        <el-button plain :type="scope.row.enable ? 'success' : 'danger'">
-          {{ scope.row.enable ? '启用' : '禁用' }}
-        </el-button>
-      </template>
-      <template #imgUrl="scope">
-        <el-image
-          :preview-teleported="true"
-          style="width: 40px"
-          :src="scope.row.imgUrl"
-          :preview-src-list="[scope.row.imgUrl]"
-        ></el-image>
-      </template> -->
     </MyTable>
   </div>
 </template>
@@ -66,15 +61,18 @@ import { useStore } from '@/store'
 import { Edit, Delete } from '@element-plus/icons-vue'
 
 import MyTable from '@/base-ui/table'
+import { usePermission } from '@/hooks/usePermission'
 
 // 公共插槽名称
 const COMMON_SOLT_NAME = ['createAt', 'updateAt', 'handler']
 
 const titleMap = {
-  user: '用户',
+  users: '用户',
   role: '角色',
-  good: '商品',
-  menu: '菜单'
+  goods: '商品',
+  menu: '菜单',
+  department: '部门',
+  category: '分类'
 }
 
 export default defineComponent({
@@ -94,12 +92,20 @@ export default defineComponent({
   setup(props) {
     const store = useStore()
 
+    // 按钮操作权限数据
+    const isCreate = usePermission(props.pageName, 'create')
+    const isUpdate = usePermission(props.pageName, 'update')
+    const isDelete = usePermission(props.pageName, 'delete')
+    const isQuery = usePermission(props.pageName, 'query')
+    console.log(isCreate, 'isCreate')
+
     // 分页数据
     const pageInfo = ref({ currentPage: 0, pageSize: 10 })
     watch(pageInfo, () => getPageData())
 
     // 发送请求
     const getPageData = (searchInfo: any = {}) => {
+      if (!isQuery) return
       store.dispatch('system/getPageListAction', {
         pageName: props.pageName,
         queryInfo: {
@@ -133,6 +139,10 @@ export default defineComponent({
 
       getPageData,
       otherPropSlots,
+
+      isCreate,
+      isUpdate,
+      isDelete,
 
       Edit,
       Delete

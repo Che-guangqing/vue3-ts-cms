@@ -7,7 +7,7 @@
     />
     <PageContent
       ref="pageContentRef"
-      pageName="good"
+      pageName="goods"
       :contentTableConfig="contentTableConfig"
     >
       <template #imgUrl="scope">

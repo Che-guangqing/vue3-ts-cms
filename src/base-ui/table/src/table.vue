@@ -107,7 +107,7 @@ export default defineComponent({
     },
     page: {
       type: Object,
-      default: () => ({ currentPage: 0, pageSize: 10 })
+      default: () => ({ currentPage: 1, pageSize: 10 })
     },
     showFooter: {
       type: Boolean,
@@ -130,10 +130,6 @@ export default defineComponent({
 
     return {
       handleSelectionChange,
-
-      currentPage: 1,
-      pageSize: 10,
-      total: 100,
       handleSizeChange,
       handleCurrentChange
     }

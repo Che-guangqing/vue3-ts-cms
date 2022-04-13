@@ -16,6 +16,7 @@
         </el-button>
       </template>
     </PageContent>
+    <PageModal :modalConfig="modalConfig"></PageModal>
   </div>
 </template>
 
@@ -25,16 +26,19 @@ import { Edit, Delete } from '@element-plus/icons-vue'
 
 import PageSearch from '@/components/page-search'
 import PageContent from '@/components/page-content'
+import PageModal from '@/components/page-modal'
 
 import { searchFormConfig } from './config/search.config'
 import { contentTableConfig } from './config/content.config'
+import { modalConfig } from './config/modal.config'
 
 import { usePageSearch } from '@/hooks/usePageSearch'
 
 export default defineComponent({
   components: {
     PageSearch,
-    PageContent
+    PageContent,
+    PageModal
   },
   setup() {
     const { pageContentRef, handleSearchClick, handleResetClick } =
@@ -61,7 +65,9 @@ export default defineComponent({
 
       pageContentRef,
       handleSearchClick,
-      handleResetClick
+      handleResetClick,
+
+      modalConfig
     }
   }
 })

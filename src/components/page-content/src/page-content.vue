@@ -27,7 +27,7 @@
       </template>
 
       <!-- 操作 -->
-      <template #handler>
+      <template #handler="scope">
         <div class="handle-btns">
           <el-button v-if="isUpdate" :icon="Edit" size="small" type="text"
             >编辑</el-button
@@ -38,6 +38,7 @@
             size="small"
             type="text"
             class="delete-btn"
+            @click="handleDeleteClick(scope.row.id)"
             >删除</el-button
           >
         </div>
@@ -62,6 +63,8 @@ import { Edit, Delete } from '@element-plus/icons-vue'
 
 import MyTable from '@/base-ui/table'
 import { usePermission } from '@/hooks/usePermission'
+
+import { ElMessage, ElMessageBox } from 'element-plus'
 
 // 公共插槽名称
 const COMMON_SOLT_NAME = ['createAt', 'updateAt', 'handler']
@@ -130,6 +133,31 @@ export default defineComponent({
       (item: any) => item.slotName && !COMMON_SOLT_NAME.includes(item.slotName)
     )
 
+    // 删除/编辑/新建操作
+    const handleDeleteClick = (id: number) => {
+      ElMessageBox.confirm('确定删除此数据?', '删除', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
+        .then(() => {
+          store
+            .dispatch('system/deletePageDataAction', {
+              pageName: props.pageName,
+              id
+            })
+            .then((res) => {
+              if (res.code === 0) {
+                getPageData()
+                ElMessage({ type: 'success', message: '删除成功' })
+              }
+            })
+        })
+        .catch(() => {
+          ElMessage({ type: 'info', message: '取消删除' })
+        })
+    }
+
     return {
       titleMap,
 
@@ -143,6 +171,8 @@ export default defineComponent({
       isCreate,
       isUpdate,
       isDelete,
+
+      handleDeleteClick,
 
       Edit,
       Delete

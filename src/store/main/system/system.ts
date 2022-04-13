@@ -3,7 +3,10 @@ import { Module } from 'vuex'
 import { IRootState } from '@/store/types'
 import { ISystemState } from './types'
 
-import { getPageListData } from '@/service/main/system/system'
+import {
+  getPageListData,
+  deletePageDataById
+} from '@/service/main/system/system'
 
 const pageUrlMap = {
   users: '/users/list',
@@ -115,6 +118,16 @@ const systemModule: Module<ISystemState, IRootState> = {
       commit(`${mutationsFunName}Count`, totalCount)
 
       // console.log(list, totalCount, 'getPageListAction ==== ')
+    },
+
+    async deletePageDataAction({ dispatch }, payload: any) {
+      // pageName: /users; id: /users/id
+
+      const { pageName, id } = payload
+      const pageUrl = `/${pageName}/${id}`
+
+      const res = await deletePageDataById(pageUrl)
+      return res
     }
   }
 }

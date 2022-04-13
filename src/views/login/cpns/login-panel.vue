@@ -39,7 +39,7 @@ export default defineComponent({
   },
   setup() {
     const currentTab = ref('account')
-    const isKeepPassword = ref(false)
+    const isKeepPassword = ref(true)
     const accountRef = ref<InstanceType<typeof LoginAccount>>()
     const phoneRef = ref<InstanceType<typeof LoginPhone>>()
 

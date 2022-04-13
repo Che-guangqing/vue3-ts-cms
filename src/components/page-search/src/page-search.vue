@@ -1,6 +1,6 @@
 <template>
   <div class="page-search">
-    <myForm v-bind="searchFormConfig" v-model="formData">
+    <MyForm v-bind="searchFormConfig" v-model="formData">
       <template #header> <h3>高级检索</h3> </template>
       <template #footer>
         <div class="handle-btns">
@@ -10,20 +10,20 @@
           <el-button :icon="Refresh" @click="handleResetClick">重置</el-button>
         </div>
       </template>
-    </myForm>
+    </MyForm>
     <div class="content"></div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
-import myForm from '@/base-ui/form'
+import MyForm from '@/base-ui/form'
 
 import { Search, Refresh } from '@element-plus/icons-vue'
 
 export default defineComponent({
   components: {
-    myForm
+    MyForm
   },
   props: {
     searchFormConfig: {

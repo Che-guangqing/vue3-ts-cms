@@ -9,7 +9,7 @@
       <!-- header -->
       <template #header></template>
       <template #headerHandler>
-        <el-button type="primary" v-if="isCreate"
+        <el-button type="primary" v-if="isCreate" @click="handleCreateClick"
           >新建{{ titleMap[pageName] }}</el-button
         >
       </template>
@@ -29,7 +29,12 @@
       <!-- 操作 -->
       <template #handler="scope">
         <div class="handle-btns">
-          <el-button v-if="isUpdate" :icon="Edit" size="small" type="text"
+          <el-button
+            v-if="isUpdate"
+            :icon="Edit"
+            size="small"
+            type="text"
+            @click="handleEditClick(scope.row)"
             >编辑</el-button
           >
           <el-button
@@ -92,7 +97,8 @@ export default defineComponent({
       required: true
     }
   },
-  setup(props) {
+  emits: ['createBtnClick', 'editBtnClick'],
+  setup(props, { emit }) {
     const store = useStore()
 
     // 按钮操作权限数据
@@ -158,6 +164,14 @@ export default defineComponent({
         })
     }
 
+    const handleCreateClick = () => {
+      emit('createBtnClick')
+    }
+
+    const handleEditClick = (row: any) => {
+      emit('editBtnClick', row)
+    }
+
     return {
       titleMap,
 
@@ -173,6 +187,8 @@ export default defineComponent({
       isDelete,
 
       handleDeleteClick,
+      handleCreateClick,
+      handleEditClick,
 
       Edit,
       Delete

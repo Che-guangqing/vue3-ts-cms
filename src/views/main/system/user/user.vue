@@ -9,6 +9,8 @@
       ref="pageContentRef"
       pageName="users"
       :contentTableConfig="contentTableConfig"
+      @createBtnClick="handleCreateData"
+      @editBtnClick="handleEditData"
     >
       <template #enable="scope">
         <el-button plain :type="scope.row.enable ? 'success' : 'danger'">
@@ -16,10 +18,9 @@
         </el-button>
       </template>
     </PageContent>
-    <PageModal :modalConfig="modalConfig"></PageModal>
+    <PageModal ref="pageModalRef" :modalConfig="modalConfig"></PageModal>
   </div>
 </template>
-
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { Edit, Delete } from '@element-plus/icons-vue'
@@ -33,6 +34,7 @@ import { contentTableConfig } from './config/content.config'
 import { modalConfig } from './config/modal.config'
 
 import { usePageSearch } from '@/hooks/usePageSearch'
+import { usePageModal } from '@/hooks/usePageModal'
 
 export default defineComponent({
   components: {
@@ -43,31 +45,23 @@ export default defineComponent({
   setup() {
     const { pageContentRef, handleSearchClick, handleResetClick } =
       usePageSearch()
-
-    // const store = useStore()
-    // store.dispatch('system/getPageListAction', {
-    //   pageName: '/user',
-    //   queryInfo: {
-    //     offset: 0,
-    //     size: 50
-    //   }
-    // })
-
-    // const userCount = computed(() => store.state.system.userCount)
-    // const userList = computed(() => store.state.system.userList)
+    const { pageModalRef, handleCreateData, handleEditData } = usePageModal()
 
     return {
       searchFormConfig,
       contentTableConfig,
-
-      Edit,
-      Delete,
+      modalConfig,
 
       pageContentRef,
+      pageModalRef,
+
       handleSearchClick,
       handleResetClick,
+      handleCreateData,
+      handleEditData,
 
-      modalConfig
+      Edit,
+      Delete
     }
   }
 })

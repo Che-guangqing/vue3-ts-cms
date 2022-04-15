@@ -34,13 +34,23 @@ export default defineComponent({
       require: true
     }
   },
-  setup() {
-    const dialogVisible = ref(true)
-    const formData = ref({})
+  setup(props) {
+    const dialogVisible = ref(false)
+    const formData = ref<any>({})
+
+    const showModal = (row) => {
+      dialogVisible.value = true
+
+      for (const item of props.modalConfig.formItems) {
+        // 新建和编辑 数据回填
+        formData.value[item.field] = row.id ? row[item.field] : ''
+      }
+    }
 
     return {
       dialogVisible,
-      formData
+      formData,
+      showModal
     }
   }
 })

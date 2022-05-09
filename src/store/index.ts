@@ -4,13 +4,43 @@ import { IRootState, IStoreType } from './types'
 import login from './login/login'
 import system from './main/system/system'
 
+import { getPageListData } from '@/service/main/system/system'
+
 const store = createStore<IRootState>({
   state: () => {
-    return {}
+    return {
+      entireDepartment: [],
+      entireRole: []
+    }
   },
-  mutations: {},
   getters: {},
-  actions: {},
+  mutations: {
+    changeEntireDepartment(state, list) {
+      state.entireDepartment = list
+    },
+    changeEntireRole(state, list) {
+      state.entireRole = list
+    }
+  },
+  actions: {
+    async getInitialDataAction({ commit }) {
+      // 请求部门和角色的option数据
+      const departmentRes = await getPageListData('/department/list', {
+        offset: 0,
+        size: 1000
+      })
+      const { list: departmentList } = departmentRes.data
+
+      const roleRes = await getPageListData('/role/list', {
+        offset: 0,
+        size: 1000
+      })
+      const { list: roleList } = roleRes.data
+
+      commit('changeEntireDepartment', departmentList)
+      commit('changeEntireRole', roleList)
+    }
+  },
   modules: {
     login,
     system
@@ -23,6 +53,7 @@ const store = createStore<IRootState>({
 
 export function setupStore() {
   store.dispatch('login/loadLocalLogin')
+  store.dispatch('getInitialDataAction')
 }
 
 // 这个useStore 规定了每个模块的state的类型

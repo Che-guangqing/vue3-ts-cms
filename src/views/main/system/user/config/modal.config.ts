@@ -26,7 +26,8 @@ export const modalConfig: IForm = {
       field: 'password',
       type: 'password',
       label: '密码',
-      placeholder: '请输入密码'
+      placeholder: '请输入密码',
+      isHidden: true
     },
     {
       field: 'cellphone',

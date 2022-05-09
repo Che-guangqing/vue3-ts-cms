@@ -45,7 +45,28 @@ export default defineComponent({
   setup() {
     const { pageContentRef, handleSearchClick, handleResetClick } =
       usePageSearch()
-    const { pageModalRef, handleCreateData, handleEditData } = usePageModal()
+
+    // pageModal相关hook
+
+    // user页面独有的点击添加/编辑 的操作 (新建隐藏密码， 编辑显示密码)
+    const newCallback = () => {
+      const passwordItem = modalConfig.formItems.find(
+        (item) => item.field === 'password'
+      )
+      passwordItem!.isHidden = false
+    }
+
+    const editCallback = () => {
+      const passwordItem = modalConfig.formItems.find(
+        (item) => item.field === 'password'
+      )
+      passwordItem!.isHidden = true
+    }
+
+    const { pageModalRef, handleCreateData, handleEditData } = usePageModal(
+      newCallback,
+      editCallback
+    )
 
     return {
       searchFormConfig,

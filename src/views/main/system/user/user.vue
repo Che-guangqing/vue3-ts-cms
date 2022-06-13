@@ -18,7 +18,11 @@
         </el-button>
       </template>
     </PageContent>
-    <PageModal ref="pageModalRef" :modalConfig="modalConfigComp"></PageModal>
+    <PageModal
+      ref="pageModalRef"
+      :modalConfig="modalConfigComp"
+      pageName="users"
+    ></PageModal>
   </div>
 </template>
 <script lang="ts">

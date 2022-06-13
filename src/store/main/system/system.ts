@@ -5,7 +5,9 @@ import { ISystemState } from './types'
 
 import {
   getPageListData,
-  deletePageDataById
+  deletePageDataById,
+  createPageData,
+  editPageData
 } from '@/service/main/system/system'
 
 const pageUrlMap = {
@@ -99,6 +101,7 @@ const systemModule: Module<ISystemState, IRootState> = {
   },
 
   actions: {
+    // 获取数据
     async getPageListAction({ commit }, payload: any) {
       // 获取pageUrl
       const pageName = payload.pageName
@@ -120,6 +123,7 @@ const systemModule: Module<ISystemState, IRootState> = {
       // console.log(list, totalCount, 'getPageListAction ==== ')
     },
 
+    // 删除数据
     async deletePageDataAction({ dispatch }, payload: any) {
       // pageName: /users; id: /users/id
 
@@ -128,6 +132,42 @@ const systemModule: Module<ISystemState, IRootState> = {
 
       const res = await deletePageDataById(pageUrl)
       return res
+    },
+
+    // 创建数据
+    async createPageDataAction({ dispatch }, payload: any) {
+      // 创建数据请求
+      const { pageName, newData } = payload
+      const pageUrl = `/${pageName}`
+
+      await createPageData(pageUrl, newData)
+
+      // 请求最新的数据列表
+      dispatch('getPageListAction', {
+        pageName,
+        queryInfo: {
+          offset: 0,
+          size: 10
+        }
+      })
+    },
+
+    // 编辑数据
+    async editPageDataAction({ dispatch }, payload: any) {
+      // 编辑数据请求
+      const { pageName, editData, id } = payload
+      const pageUrl = `/${pageName}/${id}`
+
+      await editPageData(pageUrl, editData)
+
+      // 请求最新的数据列表
+      dispatch('getPageListAction', {
+        pageName,
+        queryInfo: {
+          offset: 0,
+          size: 10
+        }
+      })
     }
   }
 }

@@ -8,9 +8,23 @@ export function getPageListData(url, queryInfo: any) {
   })
 }
 
-// uisers/id
+// users/id
 export function deletePageDataById(url: string) {
   return myRequest.delete<IDataType>({
     url
+  })
+}
+
+export function createPageData(url: string, newData: any) {
+  return myRequest.post<IDataType>({
+    url,
+    data: newData
+  })
+}
+
+export function editPageData(url: string, editData: any) {
+  return myRequest.patch<IDataType>({
+    url,
+    data: editData
   })
 }

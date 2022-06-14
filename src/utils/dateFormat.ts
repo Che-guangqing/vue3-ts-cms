@@ -9,7 +9,7 @@ export function formatUtcString(
   UtcString: string,
   format: string = DATE_TIME_FORMAT
 ) {
-  return dayjs.utc(UtcString).format(format)
+  return dayjs.utc(UtcString).utcOffset(8).format(format)
 }
 
 export function formatTimestamp(

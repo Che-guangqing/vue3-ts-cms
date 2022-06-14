@@ -2,11 +2,12 @@
   <div class="page-modal">
     <el-dialog
       v-model="dialogVisible"
-      title="新建用户"
+      :title="titleMap[pageName]"
       width="28%"
       destroy-on-close
     >
       <MyFrom v-bind="modalConfig" v-model="formData"> </MyFrom>
+      <slot></slot>
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="dialogVisible = false">取消</el-button>
@@ -23,6 +24,14 @@ import { useStore } from 'vuex'
 
 import { defineComponent, ref } from 'vue'
 
+const titleMap = {
+  users: '用户',
+  role: '角色',
+  goods: '商品',
+  menu: '菜单',
+  department: '部门',
+  category: '分类'
+}
 export default defineComponent({
   components: {
     MyFrom
@@ -31,6 +40,11 @@ export default defineComponent({
     modalConfig: {
       type: Object,
       require: true
+    },
+    // 除了公共的配置字段 特定页面有特定的字段
+    otherInfo: {
+      type: Object,
+      default: () => ({})
     },
     pageName: {
       type: String,
@@ -63,14 +77,14 @@ export default defineComponent({
         // 编辑
         store.dispatch('system/editPageDataAction', {
           pageName: props.pageName,
-          editData: { ...formData.value },
+          editData: { ...formData.value, ...props.otherInfo },
           id: rowData.value.id
         })
       } else {
         // 新建
         store.dispatch('system/createPageDataAction', {
           pageName: props.pageName,
-          newData: { ...formData.value }
+          newData: { ...formData.value, ...props.otherInfo }
         })
       }
     }
@@ -79,7 +93,9 @@ export default defineComponent({
       dialogVisible,
       formData,
       showModal,
-      handleConfirmClick
+      handleConfirmClick,
+
+      titleMap
     }
   }
 })

@@ -35,7 +35,8 @@ import {
   ElImage,
   ElDialog,
   ElMessage,
-  ElMessageBox
+  ElMessageBox,
+  ElTree
 } from 'element-plus'
 const components = [
   ElTabs,
@@ -69,7 +70,8 @@ const components = [
   ElPagination,
   ElConfigProvider,
   ElImage,
-  ElDialog
+  ElDialog,
+  ElTree
 ]
 
 const plugins = [ElMessage, ElMessageBox]
